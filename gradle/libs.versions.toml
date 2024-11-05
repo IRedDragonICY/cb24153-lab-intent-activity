@@ -1,5 +1,6 @@
 [versions]
 agp = "8.6.0-alpha07"
+appcompat = "1.7.0"
 constraintlayout = "2.2.0"
 kotlin = "2.0.21"
 coreKtx = "1.15.0"
@@ -11,6 +12,7 @@ activityCompose = "1.9.3"
 composeBom = "2024.10.01"
 
 [libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -30,4 +32,5 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
