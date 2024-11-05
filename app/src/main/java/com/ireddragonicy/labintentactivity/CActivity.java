@@ -1,12 +1,12 @@
 package com.ireddragonicy.labintentactivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.activity.ComponentActivity;
 
-public class CActivity extends Activity {
+public class CActivity extends ComponentActivity {
 
     private TextView receivedInfoTextView;
     private Button homeButton;
@@ -18,7 +18,7 @@ public class CActivity extends Activity {
         setContentView(R.layout.cactivity);
 
         initializeViews();
-        handleIncomingIntent();
+        displayReceivedMessage();
         setClickListeners();
     }
 
@@ -28,7 +28,7 @@ public class CActivity extends Activity {
         backButton = findViewById(R.id.button8);
     }
 
-    private void handleIncomingIntent() {
+    private void displayReceivedMessage() {
         String message = getIntent().getStringExtra("messageToC");
         if (message != null) {
             receivedInfoTextView.setText(message);

@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import androidx.activity.ComponentActivity;
 
-public class BActivity extends Activity {
+public class BActivity extends ComponentActivity {
 
     private TextView receivedInfoTextView;
     private EditText sendInfoEditText;
@@ -22,7 +23,7 @@ public class BActivity extends Activity {
         setContentView(R.layout.bactivity);
 
         initializeViews();
-        handleIncomingIntent();
+        displayReceivedMessage();
         setClickListeners();
     }
 
@@ -35,7 +36,7 @@ public class BActivity extends Activity {
         backButton = findViewById(R.id.button4);
     }
 
-    private void handleIncomingIntent() {
+    private void displayReceivedMessage() {
         String message = getIntent().getStringExtra("messageToB");
         if (message != null) {
             receivedInfoTextView.setText(message);

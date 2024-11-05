@@ -2,10 +2,10 @@ package com.ireddragonicy.labintentactivity
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.ComponentActivity
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 
 class MainActivity : ComponentActivity() {
 
@@ -15,16 +15,14 @@ class MainActivity : ComponentActivity() {
     private lateinit var sendToCButton: Button
     private lateinit var implicitActivityButton: Button
 
-    companion object {
-        const val REQUEST_CODE_B = 1
-    }
+    private lateinit var startForResult: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mainactivity)
 
         initializeViews()
-        handleIncomingIntent()
+        setupActivityResultLauncher()
         setClickListeners()
     }
 
@@ -36,9 +34,15 @@ class MainActivity : ComponentActivity() {
         implicitActivityButton = findViewById(R.id.button11)
     }
 
-    private fun handleIncomingIntent() {
-        intent.getStringExtra("replyMessage")?.let { message ->
-            receivedInfoTextView.text = message
+    private fun setupActivityResultLauncher() {
+        startForResult = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                result.data?.getStringExtra("replyMessage")?.let { message ->
+                    receivedInfoTextView.text = message
+                }
+            }
         }
     }
 
@@ -48,7 +52,7 @@ class MainActivity : ComponentActivity() {
             val intent = Intent(this, BActivity::class.java).apply {
                 putExtra("messageToB", message)
             }
-            startActivityForResult(intent, REQUEST_CODE_B)
+            startForResult.launch(intent)
         }
 
         sendToCButton.setOnClickListener {
@@ -63,14 +67,5 @@ class MainActivity : ComponentActivity() {
             val intent = Intent(this, MyImplicitIntent::class.java)
             startActivity(intent)
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CODE_B && resultCode == RESULT_OK) {
-            data?.getStringExtra("replyMessage")?.let { message ->
-                receivedInfoTextView.text = message
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 }
