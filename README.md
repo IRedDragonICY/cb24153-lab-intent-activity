@@ -98,6 +98,11 @@ Intents are used to navigate between different activities and pass data in Andro
 2. **Implicit Intents**:
    - **MyImplicitIntent** activity allows for implicit actions like browsing a website or sending an SMS.
 
+---
+
+## Demo
+
+[![Watch the demo](https://img.youtube.com/vi/OZVv5iGewpc/0.jpg)](https://youtu.be/OZVv5iGewpc)
 
 
 ---
